@@ -1,4 +1,4 @@
-package com.nisum.automation.screen.handlers;
+package com.nisum.qa.automation.handlers;
 
 import java.io.File;
 import java.io.IOException;
@@ -9,7 +9,7 @@ import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
 
-import com.nisum.automation.util.CommonMethods;
+import com.nisum.qa.automation.util.CommonUtils;
 
 public class ScreenshotHandler {
 
@@ -23,7 +23,7 @@ public class ScreenshotHandler {
 	public static String getPageScreenshot(WebDriver driver) {
 		try {
 			sourceFile = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
-			screenShotName = "Screenshot" + CommonMethods.getRandomNumber() + ".png";
+			screenShotName = "Screenshot" + CommonUtils.getRandomNumber() + ".png";
 			File screenshotsLoc = new File(scrPath, screenShotName);
 			Files.copy(sourceFile.toPath(), screenshotsLoc.toPath());
 
