@@ -40,7 +40,7 @@ public class CommonUtils extends PropertiesUtils{
 	 */
 	public String sheetName() {
 		try {
-			sheetName = toGetGivenProperty("sheetName");
+			sheetName = readPropertyValue("", "sheetName");
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

@@ -20,9 +20,11 @@ public class Browsers {
 	public WebDriver launchSpecifiedBrowser(String browserName, ITestContext context) {
 		if (browserName.equalsIgnoreCase("Chrome")) {
 			driver = chromeDriver();
+			driver.manage().window().maximize();
 			context.setAttribute("driver", driver);
 		} else if (browserName.equalsIgnoreCase("firefox")) {
 			driver = firefoxDriver();
+			driver.manage().window().maximize();
 			context.setAttribute("driver", driver);
 		}
 		return driver;

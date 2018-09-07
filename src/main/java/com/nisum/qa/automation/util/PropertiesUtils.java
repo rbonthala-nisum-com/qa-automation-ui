@@ -5,23 +5,21 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Properties;
 
-import org.apache.commons.configuration.ConfigurationException;
-import org.apache.commons.configuration.PropertiesConfiguration;
 import org.apache.log4j.Logger;
 
 public class PropertiesUtils {
 
 	Logger log = Logger.getLogger(getClass());
 	private Properties properties = new Properties();
-	private String propertiesFileName = "application";
-	private String fileSeperator = System.getProperty("file.separator");
+	// private String propertiesFileName = "application";
+	// private String fileSeperator = System.getProperty("file.separator");
 	private static PropertiesUtils readProperties;
 
 	/**
 	 * Default constructor.
 	 */
 	public PropertiesUtils() {
-		
+
 	}
 
 	/**
@@ -35,12 +33,24 @@ public class PropertiesUtils {
 	}
 
 	/**
-	 * Returns the value of given key from given properties file
+	 * Load the properties file and returns the value of given key from given
+	 * properties file
 	 */
-	public String toGetGivenProperty(String provideKey) {
+
+	public String readPropertyValue(String filePath, String provideKey) {
+		FileInputStream fis;
+		try {
+			fis = new FileInputStream(filePath);
+			properties.load(fis);
+			fis.close();
+		} catch (FileNotFoundException e) {
+			log.error("Unale to find properties file at " + filePath);
+		} catch (IOException e) {
+			log.error("Cannot read configuration file - " + " at " + filePath);
+		}
+
 		String value = "";
 		if (provideKey != "") {
-			loadingOfPropertiesFile();
 			try {
 				if (!properties.getProperty(provideKey).trim().isEmpty())
 					value = properties.getProperty(provideKey).trim();
@@ -52,47 +62,23 @@ public class PropertiesUtils {
 
 		}
 		return value;
+
 	}
 
-	// This is to load properties file.
-	private void loadingOfPropertiesFile() {
-		FileInputStream fis;
-		try {
-			fis = new FileInputStream(getPropertiesFilePath(propertiesFileName));
-			properties.load(fis);
-			fis.close();
-		} catch (FileNotFoundException e) {
-			log.error("Unale to find properties file - " + propertiesFileName + ".properties" + " at "
-					+ getPropertiesFilePath(propertiesFileName));
-		} catch (IOException e) {
-			log.error("Cannot read configuration file - " + " at " + getPropertiesFilePath(propertiesFileName));
-		}
-	}
-
-	public void toWritingProperty(String provideKey, String provideData) {
-		if (provideKey.trim().length() > 0) {
-			try {
-				PropertiesConfiguration propertyConfigure = null;
-				propertyConfigure = new PropertiesConfiguration(getPropertiesFilePath(propertiesFileName));
-				propertyConfigure.setProperty(provideKey, provideData);
-				propertyConfigure.getLayout();
-				propertyConfigure.save();
-			} catch (ConfigurationException e) {
-			}
-		} else {
-
-		}	
-	}
-
-	public String getPropertiesFilePath(String fileName) {
-		String propertiesFilePath;
-		propertiesFilePath = getPropertiesDataFolderPath() + fileSeperator + fileName + ".properties";
-		return propertiesFilePath;
-	}
-
-	// This is to get provided data file path.
-	public String getPropertiesDataFolderPath() {
-		return System.getProperty("user.dir") + fileSeperator + "Data";
-	}
+	// public void toWritingProperty(String provideKey, String provideData) {
+	// if (provideKey.trim().length() > 0) {
+	// try {
+	// PropertiesConfiguration propertyConfigure = null;
+	// propertyConfigure = new
+	// PropertiesConfiguration(getPropertiesFilePath(propertiesFileName));
+	// propertyConfigure.setProperty(provideKey, provideData);
+	// propertyConfigure.getLayout();
+	// propertyConfigure.save();
+	// } catch (ConfigurationException e) {
+	// }
+	// } else {
+	//
+	// }
+	// }
 
 }

@@ -22,7 +22,7 @@ public class TimeOutMethods {
 
 	public TimeOutMethods(WebDriver driver) {
 		TimeOutMethods.driver = driver;
-		log = Logger.getLogger(getClass());
+//		log = Logger.getLogger(getClass());
 	}
 
 	/**

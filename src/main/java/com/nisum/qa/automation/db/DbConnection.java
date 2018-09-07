@@ -16,15 +16,15 @@ public class DbConnection extends PropertiesUtils {
 
 	private static Logger log = LoggerFactory.getLogger(DbConnection.class);
 
-	public MongoDatabase getConnection() {
+	public MongoDatabase getConnection(String filePath) {
 		MongoDatabase database = null;
 		try {
 			MongoCredential credential;
-			MongoClient mongo = new MongoClient(toGetGivenProperty("host"), 27017);
-			credential = MongoCredential.createCredential(toGetGivenProperty("username"),
-					toGetGivenProperty("database"), toGetGivenProperty("password").toCharArray());
+			MongoClient mongo = new MongoClient(readPropertyValue(filePath,"host"), 27017);
+			credential = MongoCredential.createCredential(readPropertyValue(filePath,"username"),
+					readPropertyValue(filePath,"database"), readPropertyValue(filePath,"password").toCharArray());
 
-			database = mongo.getDatabase(toGetGivenProperty("password"));
+			database = mongo.getDatabase(readPropertyValue(filePath,"password"));
 		} catch (Exception e) {
 			log.error("Problem in loading or " + "registering MongoDb driver", e);
 		}
