@@ -37,7 +37,7 @@ public class PropertiesUtils {
 	 * properties file
 	 */
 
-	public String readPropertyValue(String filePath, String provideKey) {
+	public Properties readPropertyValue(String filePath) {
 		FileInputStream fis;
 		try {
 			fis = new FileInputStream(filePath);
@@ -49,19 +49,19 @@ public class PropertiesUtils {
 			log.error("Cannot read configuration file - " + " at " + filePath);
 		}
 
-		String value = "";
-		if (provideKey != "") {
-			try {
-				if (!properties.getProperty(provideKey).trim().isEmpty())
-					value = properties.getProperty(provideKey).trim();
-			} catch (NullPointerException e) {
-
-			}
-		} else {
-			log.error("Should provide existing key");
-
-		}
-		return value;
+//		String value = "";
+//		if (provideKey != "") {
+//			try {
+//				if (!properties.getProperty(provideKey).trim().isEmpty())
+//					value = properties.getProperty(provideKey).trim();
+//			} catch (NullPointerException e) {
+//
+//			}
+//		} else {
+//			log.error("Should provide existing key");
+//
+//		}
+		return properties;
 
 	}
 
