@@ -8,6 +8,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.ie.InternetExplorerDriver;
 import org.testng.ITestContext;
 
 public class Browsers {
@@ -27,6 +28,10 @@ public class Browsers {
 			driver.manage().window().maximize();
 			context.setAttribute("driver", driver);
 		}
+		else if(browserName.equalsIgnoreCase("internetExplorer")) {
+			driver = ieDriver();
+			context.setAttribute("driver", driver);
+		}
 		return driver;
 	}
 
@@ -37,10 +42,23 @@ public class Browsers {
 		Map<String, Object> prefs = new HashMap<String, Object>();
 		prefs.put("download.prompt_for_download", false);
 		ChromeOptions options = new ChromeOptions();
+//		options.addArguments("--headless"); 
 		options.addArguments("--test-type", "start-maximized");
 		options.setExperimentalOption("prefs", prefs);
 		options.addArguments("disable-infobars");
 		return new ChromeDriver(options);
+		
+//		DesiredCapabilities capabilities = DesiredCapabilities.chrome();
+//		capabilities.setCapability(CapabilityType.ForSeleniumServer.ENSURING_CLEAN_SESSION, true);
+//
+//		ChromeOptions opts = new ChromeOptions();
+//		opts.addArguments("start-maximized");
+//		capabilities.setCapability(ChromeOptions.CAPABILITY, opts);
+//
+//		WebDriver driver = new ChromeDriver(capabilities);
+//		driver.manage().deleteAllCookies();
+//		return new ChromeDriver();
+//		
 	}
 
 	// To launch Firefox browser.
@@ -51,6 +69,13 @@ public class Browsers {
 		return driver;
 	}
 
+	//To launch IE driver.
+	private WebDriver ieDriver() {
+		log.info("Launching IE browser");
+		System.setProperty("webdriver.ie.driver", getIEDriverPath());
+		driver = new InternetExplorerDriver();
+		return driver;
+	}
 	// This is to get Chrome driver path
 	public String getDriverPath() {
 
@@ -66,5 +91,14 @@ public class Browsers {
 				+ fileSeperator;
 		firefoxDriverLocation = firefoxDriverLocation + "geckodriver.exe";
 		return firefoxDriverLocation;
+	}
+	
+	//This is to get IE driver path.
+	public String getIEDriverPath() {
+
+		String internetExplorerDriverLocation = System.getProperty("user.dir") + fileSeperator + "BrowserDrivers"
+				+ fileSeperator;
+		internetExplorerDriverLocation = internetExplorerDriverLocation + "IEDriverServer.exe";
+		return internetExplorerDriverLocation;
 	}
 }

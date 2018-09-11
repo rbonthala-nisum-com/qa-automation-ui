@@ -13,7 +13,7 @@ import org.testng.Assert;
 
 public class TimeOutMethods {
 
-	public static WebDriver driver;
+	public WebDriver driver;
 	static Logger log;
 	public static int waitTime10Seconds = 10;
 	public static int waitTime30Seconds = 30;
@@ -21,7 +21,7 @@ public class TimeOutMethods {
 	public static int waitTime90Seconds = 90;
 
 	public TimeOutMethods(WebDriver driver) {
-		TimeOutMethods.driver = driver;
+		this.driver = driver;
 //		log = Logger.getLogger(getClass());
 	}
 
@@ -30,7 +30,7 @@ public class TimeOutMethods {
 	 *
 	 * @param timeInSeconds the time in seconds
 	 */
-	public static void sleepInSeconds(int timeInSeconds) {
+	public void sleepInSeconds(int timeInSeconds) {
 
 		try {
 			Thread.sleep(timeInSeconds);
@@ -51,7 +51,7 @@ public class TimeOutMethods {
 	 * 
 	 * @param timeInSeconds
 	 */
-	public static void implicitWaitForGivenTime(int timeInSeconds) {
+	public void implicitWaitForGivenTime(int timeInSeconds) {
 		try {
 			driver.manage().timeouts().implicitlyWait(timeInSeconds, TimeUnit.SECONDS);
 		} catch (Exception e) {
@@ -69,7 +69,7 @@ public class TimeOutMethods {
 	 *            - wait time in seconds
 	 * @return - true if element exists.
 	 */
-	public static boolean whetherElementPresent(By elementLocator, int... waitTimeInSeconds) {
+	public boolean whetherElementPresent(By elementLocator, int... waitTimeInSeconds) {
 		int timeInSeconds = toGetGivenAmountOfTime(waitTimeInSeconds);
 		boolean whetherElementPresent = false;
 		log.info("Searching for given element:  " + elementLocator);
@@ -99,7 +99,7 @@ public class TimeOutMethods {
 	 * @param waitTimeArray
 	 * @return
 	 */
-	public static int toGetGivenAmountOfTime(int[] waitTimeArray) {
+	public int toGetGivenAmountOfTime(int[] waitTimeArray) {
 		if (waitTimeArray.length <= 0) {
 			return waitTime30Seconds;
 		} else {
@@ -115,7 +115,7 @@ public class TimeOutMethods {
 	 * @param waitTime
 	 * @return - True (boolean) if given element is located
 	 */
-	public static boolean whetherElementClickable(By locator, int... givenTimeInSeconds) {
+	public boolean whetherElementClickable(By locator, int... givenTimeInSeconds) {
 		int timeInSeconds = toGetGivenAmountOfTime(givenTimeInSeconds);
 		boolean elementClickable = false;
 		try {
