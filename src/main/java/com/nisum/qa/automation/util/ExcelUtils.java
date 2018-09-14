@@ -9,12 +9,23 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 public class ExcelUtils {
 
-	XSSFWorkbook workbook;
-	XSSFSheet sheet;
-	XSSFRow row;
-	XSSFCell cell;
+	static XSSFWorkbook workbook;
+	static XSSFSheet sheet;
+	static XSSFRow row;
+	static XSSFCell cell;
 
-	public String getCellData(String filePath, String sheetName, String fieldName) {
+	// private static ExcelUtils uniqueInstance;
+	//
+	// private ExcelUtils() {}
+	//
+	// public static ExcelUtils getInstance() {
+	// if (uniqueInstance == null) {
+	// uniqueInstance = new ExcelUtils();
+	// }
+	// return uniqueInstance;
+	// }
+
+	public static String getCellData(String filePath, String sheetName, String fieldName) {
 		String columnValue = "";
 		try {
 			FileInputStream fis = new FileInputStream(filePath);
@@ -24,7 +35,8 @@ public class ExcelUtils {
 			int lastRow = sheet.getLastRowNum();
 			for (int i = 0; i <= lastRow; i++) {
 				row = sheet.getRow(i);
-				if (row.getCell(0).getStringCellValue().trim().toLowerCase().equals(fieldName.trim().toLowerCase())) {
+				if (row.getCell(0).getStringCellValue().replaceAll("\\s", "").trim().toLowerCase()
+						.equals(fieldName.replaceAll("\\s", "").trim().toLowerCase())) {
 					col_Num = 1;
 					cell = row.getCell(col_Num);
 					columnValue = cell.getStringCellValue();

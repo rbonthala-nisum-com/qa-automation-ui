@@ -38,14 +38,14 @@ public class CommonUtils extends PropertiesUtils{
 	 *
 	 * @return the string
 	 */
-	public String sheetName() {
-		try {
-			sheetName = readPropertyValue("", "sheetName");
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		return sheetName;
-	}
+//	public String sheetName() {
+//		try {
+//			sheetName = readPropertyValue("", "sheetName");
+//		} catch (Exception e) {
+//			e.printStackTrace();
+//		}
+//		return sheetName;
+//	}
 
 	public String filePath() {
 		try {

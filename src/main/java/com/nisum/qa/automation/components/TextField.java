@@ -2,6 +2,7 @@ package com.nisum.qa.automation.components;
 
 import java.util.NoSuchElementException;
 
+import org.apache.log4j.Logger;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -11,6 +12,7 @@ public class TextField extends TimeOutMethods {
 
 	public TextField(WebDriver driver) {
 		super(driver);
+		log = Logger.getLogger(getClass());
 	}
 
 	// To enter text into given web element.
