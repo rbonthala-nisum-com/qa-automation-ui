@@ -11,8 +11,6 @@ public class PropertiesUtils {
 
 	Logger log = Logger.getLogger(getClass());
 	private Properties properties = new Properties();
-	// private String propertiesFileName = "application";
-	// private String fileSeperator = System.getProperty("file.separator");
 	private static PropertiesUtils readProperties;
 
 	/**
@@ -48,37 +46,8 @@ public class PropertiesUtils {
 		} catch (IOException e) {
 			log.error("Cannot read configuration file - " + " at " + filePath);
 		}
-
-//		String value = "";
-//		if (provideKey != "") {
-//			try {
-//				if (!properties.getProperty(provideKey).trim().isEmpty())
-//					value = properties.getProperty(provideKey).trim();
-//			} catch (NullPointerException e) {
-//
-//			}
-//		} else {
-//			log.error("Should provide existing key");
-//
-//		}
 		return properties;
 
 	}
-
-	// public void toWritingProperty(String provideKey, String provideData) {
-	// if (provideKey.trim().length() > 0) {
-	// try {
-	// PropertiesConfiguration propertyConfigure = null;
-	// propertyConfigure = new
-	// PropertiesConfiguration(getPropertiesFilePath(propertiesFileName));
-	// propertyConfigure.setProperty(provideKey, provideData);
-	// propertyConfigure.getLayout();
-	// propertyConfigure.save();
-	// } catch (ConfigurationException e) {
-	// }
-	// } else {
-	//
-	// }
-	// }
 
 }
