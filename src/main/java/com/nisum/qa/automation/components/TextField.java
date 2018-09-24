@@ -24,8 +24,10 @@ public class TextField extends TimeOutMethods {
 				WebElement webelement = driver.findElement(locator);
 				if(typeOfFunctionality.equalsIgnoreCase("sendKeys")) {
 					webelement.sendKeys(provideText);
+					sleepInSeconds(1000);
 				}else if((typeOfFunctionality.equalsIgnoreCase("clearText"))||typeOfFunctionality.equalsIgnoreCase("clear")){
 					webelement.clear();
+					sleepInSeconds(1000);
 				}
 				
 				log.info("Entered value: " + provideText + "in to the given web element: " + locator);
