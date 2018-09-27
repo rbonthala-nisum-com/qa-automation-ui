@@ -1,6 +1,9 @@
 package com.nisum.qa.automation.util;
 
 import java.io.FileInputStream;
+import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 
 import org.apache.poi.xssf.usermodel.XSSFCell;
 import org.apache.poi.xssf.usermodel.XSSFRow;
@@ -8,11 +11,6 @@ import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 public class ExcelUtils {
-
-	static XSSFWorkbook workbook;
-	static XSSFSheet sheet;
-	static XSSFRow row;
-	static XSSFCell cell;
 
 	// private static ExcelUtils uniqueInstance;
 	//
@@ -25,30 +23,54 @@ public class ExcelUtils {
 	// return uniqueInstance;
 	// }
 
-	public static String getCellData(String filePath, String sheetName, String fieldName) {
-		String columnValue = "";
+	public static Map<String, String> getCellData(String filePath, String sheetName) {
+		XSSFRow row;
+		XSSFCell cell;
+		Map<String, String> data = new HashMap<String, String>();
+		FileInputStream fis = null;
+		XSSFWorkbook workbook = null;
+		XSSFSheet sheet = null;
+		String key;
+		String value;
+		String sheets = "";
 		try {
-			FileInputStream fis = new FileInputStream(filePath);
+			fis = new FileInputStream(filePath);
 			workbook = new XSSFWorkbook(fis);
-			int col_Num = -1;
-			sheet = workbook.getSheet(sheetName);
+			for (int i = 0; i < workbook.getNumberOfSheets(); i++) {
+//				sheets = sheets + "," + workbook.getSheetName(i);
+				if(sheetName.equalsIgnoreCase(workbook.getSheetName(i))) {
+					sheet = workbook.getSheet(sheetName);
+					break;
+				}
+            }
 			int lastRow = sheet.getLastRowNum();
 			for (int i = 0; i <= lastRow; i++) {
 				row = sheet.getRow(i);
-				if (row.getCell(0).getStringCellValue().replaceAll("\\s", "").trim().toLowerCase()
-						.equals(fieldName.replaceAll("\\s", "").trim().toLowerCase())) {
-					col_Num = 1;
-					cell = row.getCell(col_Num);
-					columnValue = cell.getStringCellValue();
-					break;
-				}
+				cell = row.getCell(0);
+				key = cell.getStringCellValue();
+				cell = row.getCell(1);
+				value = cell.getStringCellValue();
+				data.put(key, value);
 			}
-			fis.close();
 		} catch (Exception e) {
 			e.printStackTrace();
-			return "row or column does not exist  in Excel";
+			//return "row or column does not exist  in Excel";
+		} finally {
+			if (fis != null) {
+				try {
+					fis.close();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			}
+			if (workbook != null) {
+				try {
+					workbook.close();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			}
 		}
-		return columnValue;
-
+		return data;
 	}
 }

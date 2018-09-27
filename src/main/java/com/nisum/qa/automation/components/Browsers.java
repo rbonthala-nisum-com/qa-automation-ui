@@ -43,6 +43,7 @@ public class Browsers {
 		prefs.put("download.prompt_for_download", false);
 		ChromeOptions options = new ChromeOptions();
 //		options.addArguments("--headless"); 
+		options.addArguments("--incognito");
 		options.addArguments("--test-type", "start-maximized");
 		options.setExperimentalOption("prefs", prefs);
 		options.addArguments("disable-infobars");

@@ -35,6 +35,7 @@ public class Clicks extends TimeOutMethods {
 			if (whetherElementClickable(locator, givenWaitTime)) {
 				WebElement webelement = driver.findElement(locator);
 				webelement.click();
+				sleepInSeconds(1000);
 				log.info("Clicked on the given web element: " + locator);
 			} else {
 				log.error(
