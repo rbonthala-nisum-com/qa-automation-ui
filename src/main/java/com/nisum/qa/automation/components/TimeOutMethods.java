@@ -14,7 +14,7 @@ import org.testng.Assert;
 public class TimeOutMethods {
 
 	public WebDriver driver;
-	static Logger log;
+	public static Logger log;
 	public static int waitTime10Seconds = 10;
 	public static int waitTime30Seconds = 30;
 	public static int waitTime60Seconds = 60;
