@@ -1,5 +1,6 @@
 package com.nisum.qa.automation.components;
 
+import java.util.List;
 import java.util.NoSuchElementException;
 
 import org.apache.log4j.Logger;
@@ -56,6 +57,36 @@ public class TextField extends TimeOutMethods {
 			if (whetherElementClickable(locator, givenWaitTime)) {
 				WebElement webelement = driver.findElement(locator);
 				successMsg = webelement.getText();
+				log.info("Text field is cleared successfully " + locator);
+			} else {
+				log.error("Not able to clear the text field " + locator + " in time - "
+						+ givenWaitTime + " Seconds");
+				Assert.fail("Not able to clear the text field " + locator + " in time - "
+						+ givenWaitTime + " Seconds");
+			}
+		} catch (NoSuchElementException e) {
+			log.error("Given web element: " + locator + " was not found in DOM in time - " + givenWaitTime + " Seconds"
+					+ " - NoSuchElementException");
+			Assert.fail("Given web element: " + locator + " was not found in DOM in time - " + givenWaitTime
+					+ " Seconds" + " - NoSuchElementException");
+		} catch (Exception e) {
+			log.error("Given web element: " + locator + " was not clickable" + e);
+			Assert.fail("Given web element: " + locator + " was not found on the web page");
+		}
+		return successMsg;
+	}
+	
+	
+	//********************************************
+	
+	public String userGetTextUsingGetAttribute(By locator, int... timeInSeconds) {
+		int givenWaitTime = 0;
+		String successMsg = "";
+		try {
+			givenWaitTime = toGetGivenAmountOfTime(timeInSeconds);
+			if (whetherElementClickable(locator, givenWaitTime)) {
+				WebElement webelement = driver.findElement(locator);
+				successMsg = webelement.getAttribute("value");
 				log.info("Text field is cleared successfully " + locator);
 			} else {
 				log.error("Not able to clear the text field " + locator + " in time - "

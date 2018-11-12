@@ -48,7 +48,7 @@ public class ExcelUtils {
 					Date d = cell.getDateCellValue();
 					Calendar cal = Calendar.getInstance();
 					cal.setTime(d);
-					value = cal.get(Calendar.YEAR) + "-" + cal.get(Calendar.MONTH) + "-"
+					value = cal.get(Calendar.YEAR) + "-" + (cal.get(Calendar.MONTH)+1) + "-"
 							+ cal.get(Calendar.DAY_OF_MONTH);
 				} else {
 					cell = row.getCell(1);
